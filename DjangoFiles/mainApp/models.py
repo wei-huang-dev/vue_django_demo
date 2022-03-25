@@ -13,7 +13,7 @@ class Language(models.Model):
         return self.name
 
 class Book(models.Model):
-    title = models.CharField(max_length=30)
+    title = models.CharField(max_length=100)
     author = models.ForeignKey('Author', on_delete=models.SET_NULL, null=True)
     genre = models.ManyToManyField(Genre)
     language = models.ForeignKey(Language, on_delete=models.CASCADE)
