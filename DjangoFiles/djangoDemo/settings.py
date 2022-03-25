@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework' # allows rest framework to be used within the application 
+    'rest_framework', # allows rest framework to be used within the application
+    'mainApp'
 ]
 
 MIDDLEWARE = [
