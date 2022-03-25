@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import Topping, Pizza
+from .models import Author, Genre, Language, Book
 
 # Register your models here.
-admin.site.register(Topping)
-admin.site.register(Pizza)
+admin.site.register(Author)
+admin.site.register(Genre)
+admin.site.register(Language)
+admin.site.register(Book)
