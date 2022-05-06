@@ -43,54 +43,104 @@ export default {
             categories: [],
           },
         },
-        scrollbar: {
-          enabled: true,
-        },
+
         rangeSelector: {
           enabled: true,
-          selected: 0,
+          buttons: [
+            {
+              type: 'day', 
+              count: 7, 
+              text: '7d', 
+              title: 'View 7 Day'
+            },
+            {
+              type: 'month', 
+              count: 1, 
+              text: 'm', 
+              title: 'View 1 Month'
+            },
+            {
+              type: 'year', 
+              count: 1, 
+              text: 'y', 
+              title: 'View 1 Year'
+            },
+            {
+              type: 'all',  
+              text: 'all', 
+              title: 'View all'
+            }
+          ]
+        },
+
+        scrollbar: {
+          enabled: true,
         },
 
         series: [
           {
-            name: "Project 1",
+            // the name of the overall fleet
+            name: "Fleet 1 ",
+            // the data that will be pulled from an api
             data: [
+              // CLASS 1 --------------------------------------------
+              {
+                start: Date.UTC(2017, 11, 1),
+                end: Date.UTC(2017, 11, 1),
+                name: "Class 1",
+                id: "class1"
+              },
+              // PLATFORM 1 --------------------------------------------
               {
                 start: Date.UTC(2017, 11, 1),
                 end: Date.UTC(2018, 1, 2),
-                completed: 0.95,
-                name: "Prototyping",
+                name: "Platform 1",
+                id: "platform1_1",
+                parent: "class1"
               },
               {
                 start: Date.UTC(2018, 1, 2),
-                end: Date.UTC(2018, 11, 5),
-                completed: 0.5,
-                name: "Development",
+                end: Date.UTC(2018, 3, 7),
+                name: "Platform 1",
+                id: "platform1_1",
+                parent: "class1"
+              },
+              // PLATFORM 2 --------------------------------------------
+              {
+                start: Date.UTC(2017, 12, 12),
+                end: Date.UTC(2018, 1, 14),
+                name: "Platform 2",
+                id: "platform2_1",
+                parent: "class1"
               },
               {
-                start: Date.UTC(2018, 11, 8),
-                end: Date.UTC(2018, 11, 9),
-                completed: 0.15,
-                name: "Testing",
+                start: Date.UTC(2018, 1, 14),
+                end: Date.UTC(2018, 2, 25),
+                name: "Platform 2",
+                id: "platform2_1",
+                parent: "class1"
+              },
+              // CLASS 2 --------------------------------------------
+              {
+                start: Date.UTC(2017, 11, 1),
+                end: Date.UTC(2017, 11, 1),
+                name: "Class 2",
+                id: "class2"
+              },
+              // PLATFORM 1 --------------------------------------------
+              {
+                start: Date.UTC(2017, 11, 10),
+                end: Date.UTC(2017, 12, 5),
+                name: "Platform 1",
+                id: "platform1_2",
+                parent: "class2"
               },
               {
-                start: Date.UTC(2018, 11, 9),
-                end: Date.UTC(2018, 11, 19),
-                completed: {
-                  amount: 0.3,
-                  fill: "#fa0",
-                },
-                name: "Development",
-              },
-              {
-                start: Date.UTC(2018, 11, 10),
-                end: Date.UTC(2018, 11, 23),
-                name: "Testing",
-              },
-              {
-                start: Date.UTC(2018, 11, 25, 8),
-                end: Date.UTC(2018, 11, 25, 16),
-                name: "Release",
+                start: Date.UTC(2017, 12, 6),
+                end: Date.UTC(2017, 12, 29),
+                name: "Platform 1",
+                id: "platform1_2",
+                parent: "class2"
               },
             ],
           },
