@@ -1,17 +1,24 @@
 <template>
-    <div id="target"></div>
+  <v-app>
+    <v-list>
+      <v-list-item v-for="(item, i) in recievedData.results" :key="i">
+        <v-list-item-content>
+          <v-list-item-title v-text="item.name"></v-list-item-title>
+          <p>Height: {{ item.height }}</p>
+        </v-list-item-content>
+      </v-list-item>
+    </v-list>
+    <!-- {{ recievedData }} -->
+  </v-app>
 </template>
 
 <script>
 export default {
   mounted() {
-    const returnedData = this.getStarWarsData()
-    const target = document.querySelector('#target')
-    console.log('Returned Data', returnedData)
-    // target.innerHTML = "<p>" + returnedData[0].name + "</p>"
+    this.getStarWarsData();
   },
 
-  data () {
+  data() {
     return {
       recievedData: [],
     };
@@ -19,14 +26,16 @@ export default {
 
   methods: {
     async getStarWarsData() {
-      const data = (await this.axios.get('https://swapi.dev/api/people/')
-      .then((res) => {
-          console.log(res.data)
-          return res.data
-      })
-      )
-      
+      const response = await this.$axios.get("https://swapi.dev/api/people/");
+      const results = response.data;
+      this.recievedData = results;
+      const parsedObject = JSON.parse(JSON.stringify(this.recievedData));
+      console.log(parsedObject);
     },
+  },
+
+  computed: {
+    
   },
 };
 </script>

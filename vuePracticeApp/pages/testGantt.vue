@@ -98,6 +98,7 @@ export default {
                 id: "platform1_1",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2017, 11, 1),
@@ -106,6 +107,7 @@ export default {
                 id: "platform1_1_details",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2018, 1, 2),
@@ -114,6 +116,7 @@ export default {
                 id: "platform1_1",
                 parent: "class1",
                 inport: false,
+                color: '#1481BA'
               },
               {
                 start: Date.UTC(2017, 11, 1),
@@ -122,6 +125,7 @@ export default {
                 id: "platform1_1_details",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               // CLASS 1 PLATFORM 2 --------------------------------------------
               {
@@ -131,6 +135,7 @@ export default {
                 id: "platform2_1",
                 parent: "class1",
                 inport: false,
+                color: '#1481BA'
               },
               {
                 start: Date.UTC(2017, 11, 1),
@@ -139,6 +144,7 @@ export default {
                 id: "platform1_2_details",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2018, 1, 14),
@@ -147,6 +153,7 @@ export default {
                 id: "platform2_1",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2017, 11, 1),
@@ -155,6 +162,7 @@ export default {
                 id: "platform1_2_details",
                 parent: "class1",
                 inport: true,
+                color: '#001021'
               },
               // CLASS 2 --------------------------------------------
               {
@@ -171,6 +179,7 @@ export default {
                 id: "platform1_2",
                 parent: "class2",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2017, 11, 1),
@@ -179,6 +188,7 @@ export default {
                 id: "platform1_1_details",
                 parent: "class2",
                 inport: true,
+                color: '#001021'
               },
               {
                 start: Date.UTC(2017, 12, 6),
@@ -187,6 +197,7 @@ export default {
                 id: "platform1_2",
                 parent: "class2",
                 inport: false,
+                color: '#1481BA'
               },
             ],
           },
