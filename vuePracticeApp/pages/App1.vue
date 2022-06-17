@@ -71,10 +71,12 @@
         <!-- {{new Date().toLocaleDateString() | formatDate}} -->
     </div>
     <v-card hover class="my-3">
-        <v-card-title><h5>ABC</h5></v-card-title>
+        <v-card-title class="ml-3">
+            <h5>ABC</h5>
+        </v-card-title>
         <v-row align="center">
             <v-col cols="10">
-                <v-simple-table class="ml-5" fixed-header id="fieldTable">
+                <v-simple-table class="ml-5" id="fieldTable">
                     <template v-slot:default>
                         <thead>
                             <tr>
@@ -88,7 +90,7 @@
                         </thead>
                         <tbody>
                             <tr v-for="(item, index)  in fields">
-                                <td>{{ item }}</td>
+                                <th>{{ item }}</th>
                                 <td v-for="fItem in fieldData">
                                     {{item.slice(-1)}}{{fItem}}
                                 </td>
@@ -96,7 +98,6 @@
                         </tbody>
                     </template>
                 </v-simple-table>
-
             </v-col>
             <v-col class="ml-5" align="center">
                 <v-row align="center">

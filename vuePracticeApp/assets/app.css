@@ -1,12 +1,32 @@
 
-#fieldTable th{
-    background: rgb(135, 142, 167);
-}
-
 #fieldTable table{
     border: 1px solid;
+    position: relative;
+    border-collapse: collapse;
+    max-width: 40em;
+    max-height: 20em;
 }
+  
+#fieldTable th{
+    background: rgb(135, 142, 167);
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    top: 0;
+  }
 
+  
+  #fieldTable  thead th:first-child {
+    left: 0;
+    z-index: 1;
+  }
+  
+  #fieldTable tbody th {
+    position: -webkit-sticky; /* for Safari */
+    position: sticky;
+    left: 0;
+    border-right: 1px solid;
+  }
+  
 /* #fieldTable table thead tr th:nth-child(2) {
     background: red; 
 } */
