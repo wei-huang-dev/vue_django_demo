@@ -174,18 +174,11 @@ export default {
                 'yyy',
             ],
 
-            field1: false,
-            field2: false,
-            field3: false,
-            field4: false,
-            field5: false,
-
-            newDate: 0,
             lastDate: new Date(),
             newDate: new Date(),
             idNum: 0,
-            // table
-            fields: [],
+            
+            fields: ["Field 1", "Field 2","Field 3","Field 4","Field 5"],
         }
     },
     methods: {
