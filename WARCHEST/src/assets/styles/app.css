@@ -1,3 +1,12 @@
-.header-text-color {
-    color: green;
+
+#fieldTable th{
+    background: rgb(224, 219, 219);
 }
+
+#fieldTable table{
+    border: 1px solid;
+}
+
+/* #fieldTable table thead tr th:nth-child(2) {
+    background: red; 
+} */

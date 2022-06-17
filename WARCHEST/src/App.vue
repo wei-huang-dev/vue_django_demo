@@ -37,8 +37,7 @@
 export default {
     data: () => ({
         drawer: null,
-        items: [
-            {
+        items: [{
                 title: 'Homepage',
                 icon: 'mdi-help-box',
                 to: '/homepage'
@@ -60,5 +59,7 @@ export default {
             // },
         ],
     }),
+    methods: {
+    }
 }
 </script>

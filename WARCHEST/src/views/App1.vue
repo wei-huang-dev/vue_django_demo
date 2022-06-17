@@ -47,7 +47,6 @@
         </v-expansion-panel>
 
     </v-expansion-panels>
-
     <v-card hover class="my-3">
         <v-row>
             <v-col class="ml-5">
@@ -66,8 +65,11 @@
                 <v-checkbox v-model="fields" id="field5" value="Field 5" :label="`Field 5`"></v-checkbox>
             </v-col>
         </v-row>
-        <!-- <div>Selected fields: {{ fields }}</div> -->
     </v-card>
+    <div>
+        <!-- Selected fields: {{ fields }} -->
+        <!-- {{new Date().toLocaleDateString() | formatDate}} -->
+    </div>
     <v-card hover class="my-3">
         <v-row align="center">
             <v-col class="ml-5" align="center">
@@ -75,28 +77,24 @@
             </v-col>
             <v-col cols="8">
 
-                <v-simple-table height="300px" class='header-text-color'>
+                <v-simple-table height="300px" fixed-header id="fieldTable">
                     <template v-slot:default>
-                        <thead class='header-text-color'>
+                        <thead>
                             <tr>
                                 <th class="text-left">
                                     FIELD
                                 </th>
-                                <th class="text-left">
-                                    06/01/2022
-                                </th>
-                                <th class="text-left">
-                                    06/02/2022
+                                <th class="text-left" v-for="item in dates">
+                                    {{ item }}
                                 </th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="item in fields">
+                            <tr v-for="(item, index)  in fields">
                                 <td>{{ item }}</td>
-                                <td>xxx</td>
-                                <td>yyy</td>
-                                <!-- <td>{{ item.date[0] }}</td>
-                                <td>{{ item.date[1] }}</td> -->
+                                <td v-for="fItem in fieldData">
+                                    {{item.slice(-1)}}{{fItem}}
+                                </td>
                             </tr>
                         </tbody>
                     </template>
@@ -105,7 +103,7 @@
             </v-col>
             <v-col class="ml-5" align="center">
                 <v-row align="center">
-                    <v-btn>Copy</v-btn>
+                    <v-btn @click="copyLastDate()">Copy</v-btn>
                 </v-row>
                 <div class="my-5"></div>
                 <v-row>
@@ -116,52 +114,6 @@
             </v-col>
         </v-row>
     </v-card>
-    <!-- <v-card hover class="my-3">
-        <v-row align="center">
-            <v-col class="ml-5" align="center">
-                DEF
-            </v-col>
-            <v-col cols="8">
-
-                <v-simple-table height="300px" class="header-text-color">
-                    <template v-slot:default>
-                        <thead class='header-text-color'>
-                            <tr>
-                                <th class="text-left">
-                                    FIELD
-                                </th>
-                                <th class="text-left">
-                                    06/01/2022
-                                </th>
-                                <th class="text-left">
-                                    06/02/2022
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="item in fields" :key="item.id">
-                                <td>{{ item.id }}</td>
-                                <td>{{ item.date[0] }}</td>
-                                <td>{{ item.date[1] }}</td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-
-            </v-col>
-            <v-col class="ml-5" align="center">
-                <v-row align="center">
-                    <v-btn>Copy</v-btn>
-                </v-row>
-                <div class="my-5"></div>
-                <v-row>
-                    <v-btn>
-                        Copy & Edit
-                    </v-btn>
-                </v-row>
-            </v-col>
-        </v-row>
-    </v-card> -->
 </v-container>
 </template>
 
@@ -169,6 +121,7 @@
 export default {
     data() {
         return {
+            id: 0,
             checkedNames: [],
             stateX: true,
             countyX: false,
@@ -177,6 +130,20 @@ export default {
             states: [
                 'State 1',
                 'State 2',
+                'State 31',
+                'State 42',
+                'State 51',
+                'State 62',
+                'State 71',
+                'State 82',
+                'State 91',
+                'State 14',
+                'State 21',
+                'State 31',
+                'State 26',
+                'State 18',
+                'State 26',
+                'State 19',
             ],
             county: [],
             counties: [
@@ -199,39 +166,43 @@ export default {
                 'color 2',
             ],
 
+            dates: [
+                new Date(new Date().getTime() - 86400000).toLocaleDateString(),
+                new Date().toLocaleDateString()
+            ],
+
+            fieldData: [
+                'xxx',
+                'yyy',
+            ],
+
             field1: false,
             field2: false,
             field3: false,
             field4: false,
             field5: false,
+
+            newDate: 0,
+            lastDate: new Date(),
+            newDate: new Date(),
             idNum: 0,
             // table
             fields: [],
-            fieldS: [{
-                    id: 'Field 1',
-                    date: ['aaa', 'bbb'],
-                },
-                {
-                    id: 'Field 2',
-                    date: ['aaa', 'bbb'],
-                },
-                {
-                    id: 'Field 3',
-                    date: ['aaa', 'bbb'],
-                },
-                {
-                    id: 'Field 4',
-                    date: ['aaa', 'bbb'],
-                },
-                {
-                    id: 'Field 5',
-                    date: ['aaa', 'bbb'],
-                },
-            ],
         }
     },
     methods: {
+        copyLastDate() {
+            this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
+            this.dates.push(this.newDate.toLocaleDateString());
+            this.lastDate = this.newDate;
+            this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
+        },
         // later
+        copyLastDate1() {
+            this.newDate = this.dates.length + 1;
+            this.dates.push('Date ' + this.newDate);
+            this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
+        },
         addField() {
             console.log("add")
             let newField = {
@@ -244,7 +215,6 @@ export default {
         deleteField(id) {
             this.fields = this.fields.filter(field => field.id !== id)
         }
-
     }
 }
 </script>
