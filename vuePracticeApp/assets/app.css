@@ -1,0 +1,12 @@
+
+#fieldTable th{
+    background: rgb(135, 142, 167);
+}
+
+#fieldTable table{
+    border: 1px solid;
+}
+
+/* #fieldTable table thead tr th:nth-child(2) {
+    background: red; 
+} */
