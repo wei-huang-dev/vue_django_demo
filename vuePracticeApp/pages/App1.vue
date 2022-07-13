@@ -66,52 +66,9 @@
             </v-col>
         </v-row>
     </v-card>
-    <div>
-        <!-- Selected fields: {{ fields }} -->
-        <!-- {{new Date().toLocaleDateString() | formatDate}} -->
-    </div>
-    <v-card hover class="my-3">
-        <v-card-title class="ml-3">
-            <h5>ABC</h5>
-        </v-card-title>
-        <v-row align="center">
-            <v-col cols="10">
-                <v-simple-table class="ml-5" id="fieldTable">
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th class="text-left">
-                                    FIELD
-                                </th>
-                                <th class="text-left" v-for="item in dates">
-                                    {{ item }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index)  in fields">
-                                <th>{{ item }}</th>
-                                <td v-for="fItem in fieldData">
-                                    {{item.slice(-1)}}{{fItem}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-            </v-col>
-            <v-col class="ml-5" align="center">
-                <v-row align="center">
-                    <v-btn @click="copyLastDate()">Copy</v-btn>
-                </v-row>
-                <div class="my-5"></div>
-                <v-row>
-                    <v-btn>
-                        Copy & Edit
-                    </v-btn>
-                </v-row>
-            </v-col>
-        </v-row>
     </v-card>
+    <fieldTable title="ABC" :selectedFields="fields" />
+    <fieldTable title="DEF" :selectedFields="fields" />
 </v-container>
 </template>
 
@@ -176,9 +133,8 @@ export default {
 
             lastDate: new Date(),
             newDate: new Date(),
-            idNum: 0,
-            
-            fields: ["Field 1", "Field 2","Field 3","Field 4","Field 5"],
+
+            fields: ["Field 1", "Field 2", "Field 3", "Field 4", "Field 5"],
         }
     },
     methods: {
@@ -187,24 +143,6 @@ export default {
             this.dates.push(this.newDate.toLocaleDateString());
             this.lastDate = this.newDate;
             this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
-        },
-        // later
-        copyLastDate1() {
-            this.newDate = this.dates.length + 1;
-            this.dates.push('Date ' + this.newDate);
-            this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
-        },
-        addField() {
-            console.log("add")
-            let newField = {
-                id: this.idNum++,
-                date: ['aaa', 'bbb']
-
-            }
-            this.fields.push(newField)
-        },
-        deleteField(id) {
-            this.fields = this.fields.filter(field => field.id !== id)
         },
         format_date(value) {
             if (value) {
