@@ -1,4 +1,4 @@
-# vuetify_warchest
+# warchest-ui
 
 ## Project setup
 ```

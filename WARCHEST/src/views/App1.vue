@@ -66,54 +66,8 @@
             </v-col>
         </v-row>
     </v-card>
-    <div>
-        <!-- Selected fields: {{ fields }} -->
-        <!-- {{new Date().toLocaleDateString() | formatDate}} -->
-    </div>
-    <v-card hover class="my-3">
-        <v-row align="center">
-            <v-col class="ml-5" align="center">
-                ABC
-            </v-col>
-            <v-col cols="8">
-
-                <v-simple-table height="300px" fixed-header id="fieldTable">
-                    <template v-slot:default>
-                        <thead>
-                            <tr>
-                                <th class="text-left">
-                                    FIELD
-                                </th>
-                                <th class="text-left" v-for="item in dates">
-                                    {{ item }}
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="(item, index)  in fields">
-                                <td>{{ item }}</td>
-                                <td v-for="fItem in fieldData">
-                                    {{item.slice(-1)}}{{fItem}}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </template>
-                </v-simple-table>
-
-            </v-col>
-            <v-col class="ml-5" align="center">
-                <v-row align="center">
-                    <v-btn @click="copyLastDate()">Copy</v-btn>
-                </v-row>
-                <div class="my-5"></div>
-                <v-row>
-                    <v-btn>
-                        Copy & Edit
-                    </v-btn>
-                </v-row>
-            </v-col>
-        </v-row>
-    </v-card>
+    <fieldTable title="ABC" :fields="this.fields" />
+    <fieldTable title="DEF" :fields="this.fields" />
 </v-container>
 </template>
 
@@ -215,6 +169,9 @@ export default {
         deleteField(id) {
             this.fields = this.fields.filter(field => field.id !== id)
         }
+    },
+    components: {
+        'fieldTable': require('@/components/FieldTable.vue').default
     }
 }
 </script>
