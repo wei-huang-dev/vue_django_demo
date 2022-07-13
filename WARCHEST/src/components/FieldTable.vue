@@ -1,11 +1,10 @@
 <template>
 <v-card hover class="my-3">
+    <v-card-title class="ml-3">
+        <span>{{ title }}</span>
+    </v-card-title>
     <v-row align="center">
-        <v-col class="ml-5" align="center">
-            <span>{{ title }}</span>
-        </v-col>
         <v-col cols="8">
-
             <v-simple-table height="300px" fixed-header id="fieldTable">
                 <template v-slot:default>
                     <thead>
@@ -19,7 +18,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(item, index) in fields">
+                        <tr v-for="(item, index) in selectedFields">
                             <td>{{ item }}</td>
                             <td v-for="fItem in fieldData">
                                 {{item.slice(-1)}}{{fItem}}
@@ -28,7 +27,6 @@
                     </tbody>
                 </template>
             </v-simple-table>
-
         </v-col>
         <v-col class="ml-5" align="center">
             <v-row align="center">
@@ -49,7 +47,7 @@
 export default {
     props: {
         title: String,
-        fields: []
+        selectedFields: []
     },
     data() {
         return {
@@ -66,9 +64,7 @@ export default {
             newDate: 0,
             lastDate: new Date(),
             newDate: new Date(),
-            idNum: 0,
-            // table
-            fields: [],
+
         }
     },
     methods: {
@@ -78,18 +74,6 @@ export default {
             this.lastDate = this.newDate;
             this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
         },
-        addField() {
-            console.log("add")
-            let newField = {
-                id: this.idNum++,
-                date: ['aaa', 'bbb']
-
-            }
-            this.fields.push(newField)
-        },
-        deleteField(id) {
-            this.fields = this.fields.filter(field => field.id !== id)
-        }
     }
 }
 </script>

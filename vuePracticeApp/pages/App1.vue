@@ -66,7 +66,6 @@
             </v-col>
         </v-row>
     </v-card>
-    </v-card>
     <fieldTable title="ABC" :selectedFields="fields" />
     <fieldTable title="DEF" :selectedFields="fields" />
 </v-container>

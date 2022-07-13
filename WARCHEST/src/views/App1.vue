@@ -1,5 +1,5 @@
 <style>
-@import '../assets/styles/app.css';
+@import '../assets/app.css';
 </style>
 
 <template>
@@ -66,8 +66,8 @@
             </v-col>
         </v-row>
     </v-card>
-    <fieldTable title="ABC" :fields="this.fields" />
-    <fieldTable title="DEF" :fields="this.fields" />
+    <fieldTable title="ABC" :selectedFields="fields" />
+    <fieldTable title="DEF" :selectedFields="fields" />
 </v-container>
 </template>
 
@@ -130,18 +130,10 @@ export default {
                 'yyy',
             ],
 
-            field1: false,
-            field2: false,
-            field3: false,
-            field4: false,
-            field5: false,
-
-            newDate: 0,
             lastDate: new Date(),
             newDate: new Date(),
-            idNum: 0,
-            // table
-            fields: [],
+
+            fields: ["Field 1", "Field 2", "Field 3", "Field 4", "Field 5"],
         }
     },
     methods: {
@@ -151,27 +143,14 @@ export default {
             this.lastDate = this.newDate;
             this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
         },
-        // later
-        copyLastDate1() {
-            this.newDate = this.dates.length + 1;
-            this.dates.push('Date ' + this.newDate);
-            this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
-        },
-        addField() {
-            console.log("add")
-            let newField = {
-                id: this.idNum++,
-                date: ['aaa', 'bbb']
-
+        format_date(value) {
+            if (value) {
+                return moment(String(value)).format('YYYYMMDD')
             }
-            this.fields.push(newField)
-        },
-        deleteField(id) {
-            this.fields = this.fields.filter(field => field.id !== id)
         }
     },
     components: {
         'fieldTable': require('@/components/FieldTable.vue').default
-    }
+    }    
 }
 </script>
