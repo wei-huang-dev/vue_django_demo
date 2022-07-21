@@ -1,12 +1,20 @@
+#fieldTable th {
+    background: rgb(185, 213, 240);
 
-#fieldTable th{
-    background: rgb(224, 219, 219);
 }
 
-#fieldTable table{
+#fieldTable td {
+    border: none;
+}
+
+#fieldTable table {
     border: 1px solid;
 }
 
-/* #fieldTable table thead tr th:nth-child(2) {
-    background: red; 
-} */
+.style-1 {
+    background-color: rgb(202, 216, 243)
+}
+
+.style-2 {
+    background-color: rgb(233, 233, 224)
+}

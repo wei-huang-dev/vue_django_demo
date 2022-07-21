@@ -66,8 +66,11 @@
             </v-col>
         </v-row>
     </v-card>
-    <fieldTable title="ABC" :selectedFields="fields" />
-    <fieldTable title="DEF" :selectedFields="fields" />
+
+    <fieldDataTable :selectedFields="fields"/>
+    
+    <fieldSimpleTable :selectedFields="fields" />
+
 </v-container>
 </template>
 
@@ -150,7 +153,9 @@ export default {
         }
     },
     components: {
-        'fieldTable': require('@/components/FieldTable.vue').default
-    }    
+        'fieldSimpleTable': require('@/components/FieldSimpleTable.vue').default,
+        'dropdownButton': require('@/components/DropdownButton.vue').default,
+        'fieldDataTable': require('@/components/FieldDataTable.vue').default,
+    }
 }
 </script>
