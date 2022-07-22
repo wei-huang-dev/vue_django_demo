@@ -69,8 +69,6 @@
 
     <fieldDataTable :selectedFields="fields"/>
     
-    <fieldSimpleTable :selectedFields="fields" />
-
 </v-container>
 </template>
 
