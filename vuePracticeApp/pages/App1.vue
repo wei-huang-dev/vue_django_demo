@@ -66,8 +66,11 @@
             </v-col>
         </v-row>
     </v-card>
-    <fieldTable title="ABC" :selectedFields="fields" />
-    <fieldTable title="DEF" :selectedFields="fields" />
+
+    <fieldDataTable :selectedFields="fields"/>
+    
+    <fieldSimpleTable :selectedFields="fields" />
+
 </v-container>
 </template>
 
@@ -148,6 +151,10 @@ export default {
                 return moment(String(value)).format('YYYYMMDD')
             }
         }
-    }
+    },
+    // components: {
+    //     'dropdownButton': require('@/components/DropdownButton.vue').default,
+    //     'fieldDataTable': require('@/components/FieldDataTable.vue').default,
+    // }
 }
 </script>
