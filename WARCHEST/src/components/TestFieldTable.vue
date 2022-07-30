@@ -1,37 +1,42 @@
 <template>
 <div id="app">
 
-    <v-app id="inspire">
-        <v-container>
-            <v-row>
-                <v-btn @click="refresh">REFRESH</v-btn>
-                <v-btn @click="copy">COPY</v-btn>
-            </v-row>
-            <v-data-table :headers="headers" :items="items" dense disable-sort item-key="id" group-by="title">
-                <template v-slot:group.header="{items, isOpen, toggle}">
-                    <th colspan="20">
-                        <v-icon @click="toggle">{{ isOpen ? 'mdi-minus' : 'mdi-plus' }}
-                        </v-icon>
-                        {{ items[0].title }}
-                    </th>
-                </template>
-                <template v-slot:item="{ item }">
-                    <tr>
-                        <td v-for="(header, index) in headers">
-                            <span v-if="index">{{ item.cols[index-1] }}</span>
-                            <span v-else>{{ item.name }}</span>
-                        </td>
-                    </tr>
-                </template>
-            </v-data-table>
+    <v-container>
+        <v-row>
+            <v-btn @click="refresh">REFRESH</v-btn>
+            <v-btn @click="copy">COPY</v-btn>
+        </v-row>
+        <v-data-table :headers="headers" :items="items" dense disable-sort item-key="id" group-by="title">
+            <template v-slot:group.header="{items, isOpen, toggle}">
+                <th colspan="20">
+                    <v-icon @click="toggle">{{ isOpen ? 'mdi-minus' : 'mdi-plus' }}
+                    </v-icon>
+                    {{ items[0].title }}
+                </th>
+            </template>
+            <template v-slot:item="{ item }">
+                <tr>
+                    <td v-for="(header, index) in headers">
+                        <span v-if="index">{{ item.cols[index-1] }}</span>
+                        <span v-else>{{ item.name }}</span>
+                    </td>
+                </tr>
+            </template>
+        </v-data-table>
 
-        </v-container>
-    </v-app>
+    </v-container>
+
 </div>
 </template>
 
 <script>
 export default {
+
+    props: {
+        selectedFields: [],
+    },
+    watch: {
+    },
     data() {
         return {
 
@@ -39,39 +44,46 @@ export default {
                 "dates": ["7/27/2022", "7/28/2022"],
                 "tables": [{
                         "title": "ABC",
-                        "field1": [10, 20],
-                        "field2": [11, 21],
-                        "field3": [12, 22],
-                        "field4": [13, 23],
-                        "field5": [13, 23]
+                        "fields": [
+                            [10, 20],
+                            [11, 21],
+                            [12, 22],
+                            [13, 23],
+                            [13, 23]
+                        ]
                     },
                     {
                         "title": "DEF",
-                        "field1": [30, 40],
-                        "field2": [31, 41],
-                        "field3": [32, 42],
-                        "field4": [33, 43],
-                        "field5": [33, 43]
+                        "fields": [
+                            [10, 20],
+                            [11, 21],
+                            [32, 22],
+                            [13, 23],
+                            [13, 23]
+                        ]
                     },
                     {
                         "title": "GIJ",
-                        "field1": [30, 40],
-                        "field2": [31, 41],
-                        "field3": [32, 42],
-                        "field4": [33, 43],
-                        "field5": [33, 43]
+                        "fields": [
+                            [10, 20],
+                            [11, 21],
+                            [42, 22],
+                            [13, 23],
+                            [13, 23]
+                        ]
                     },
                     {
                         "title": "KLM",
-                        "field1": [30, 40],
-                        "field2": [31, 41],
-                        "field3": [32, 42],
-                        "field4": [33, 43],
-                        "field5": [33, 43]
+                        "fields": [
+                            [10, 20],
+                            [11, 21],
+                            [52, 22],
+                            [13, 23],
+                            [13, 23]
+                        ]
                     },
                 ]
             },
-
             obj: null,
             responseData: null,
             index: 0,
@@ -81,6 +93,7 @@ export default {
     },
     mounted() {
         this.index = this.headers.length
+        //        this.redo = selectedFields.length
     },
     methods: {
         refresh() {
@@ -107,32 +120,35 @@ export default {
                     text: this.responseData.dates[j],
                 })
             }
+
+            this.selectedFields.forEach((element, index) => {
+                console.log(element + " " + index);
+                if (element === 'Field 1') {
+                    console.log('sdfasdfasdfas');
+                }
+            })
+
+            let fieldData = null
             for (let i = 0; i < this.responseData.tables.length; i++) {
-                this.items.push({
-                    title: this.responseData.tables[i].title,
-                    name: "field1",
-                    cols: this.responseData.tables[i].field1
-                })
-                this.items.push({
-                    title: this.responseData.tables[i].title,
-                    name: "field2",
-                    cols: this.responseData.tables[i].field2
-                })
-                this.items.push({
-                    title: this.responseData.tables[i].title,
-                    name: "field3",
-                    cols: this.responseData.tables[i].field3
-                })
-                this.items.push({
-                    //                        name: Object.keys(this.responseData.tables[i])[4],
-                    title: this.responseData.tables[i].title,
-                    name: "field4",
-                    cols: this.responseData.tables[i].field4
-                })
-                this.items.push({
-                    title: this.responseData.tables[i].title,
-                    name: "field5",
-                    cols: this.responseData.tables[i].field5
+
+                this.selectedFields.forEach(field => {
+                    switch (field) {
+                        case 'Field 1':
+                            fieldData = this.responseData.tables[i].fields[0];
+                            break;
+                        case 'Field 2':
+                            fieldData = this.responseData.tables[i].fields[1];
+                            break;
+                        default:
+                            fieldData = this.responseData.tables[i].fields[2];
+                    }
+
+                    this.items.push({
+                        title: this.responseData.tables[i].title,
+                        name: field,
+                        cols: fieldData // check field number
+                    })
+
                 })
 
             }
@@ -147,12 +163,8 @@ export default {
             for (let i = 0; i < items.length; i++) {
                 console.log(items[i].title)
                 if (items[i].title === 'ABC') {
-                    itemsLen = items[i].field1.length
-                    items[i].field1.push(items[i].field1[itemsLen - 1])
-                    items[i].field2.push(items[i].field2[itemsLen - 1])
-                    items[i].field3.push(items[i].field3[itemsLen - 1])
-                    items[i].field4.push(items[i].field4[itemsLen - 1])
-                    items[i].field5.push(items[i].field5[itemsLen - 1])
+                    itemsLen = items[i].fields[0].length
+                    items[i].fields[0].push(items[i].fields[0][itemsLen - 1])
                 }
             }
 
