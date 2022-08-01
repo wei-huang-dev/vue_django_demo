@@ -47,27 +47,8 @@
         </v-expansion-panel>
 
     </v-expansion-panels>
-    <v-card hover class="my-3">
-        <v-row>
-            <v-col class="ml-5">
-                <v-checkbox v-model="fields" id="field1" value="Field 1" :label="`Field 1`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field2" value="Field 2" :label="`Field 2`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field3" value="Field 3" :label="`Field 3`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field4" value="Field 4" :label="`Field 4`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field5" value="Field 5" :label="`Field 5`"></v-checkbox>
-            </v-col>
-        </v-row>
-    </v-card>
 
-    <fieldDataTable :selectedFields="fields"/>
+    <jsonFieldTable/> 
     
 </v-container>
 </template>
