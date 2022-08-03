@@ -5,37 +5,37 @@
     </v-card-title> -->
     <v-row align="center">
         <v-col cols="10">
-
-            <v-simple-table height="300px" fixed-header id="fieldTable">
-                <template v-slot:default>
-                    <thead>
-                        <tr>
-                            <th class="text-left">
-                                TITLE-FIELD
-                            </th>
-                            <th class="text-left" v-for="item in dates">
-                                {{ item }}
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <template v-for="(titem, tindex) in tableTitles">
+            <div class="scrollsettings">
+                <v-simple-table height="1230px" id="fieldTable">
+                    <template v-slot:default>
+                        <thead>
                             <tr>
-                                <td bgcolor=#eee>{{titem}}</td>
-                                <td bgcolor=#eee v-for="fItem in dates">
-                                </td>
+                                <th class="headcol">
+                                    DATE
+                                </th>
+                                <th class="text-left" v-for="item in dates">
+                                    {{ item }}
+                                </th>
                             </tr>
-                            <tr v-for="(item, index) in selectedFields.sort()">
-                                <td>{{ item }}</td>
-                                <td v-for="fItem in fieldTables[tindex]">
-                                    {{item.slice(-1)}}{{fItem}}
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </template>
-            </v-simple-table>
-
+                        </thead>
+                        <tbody>
+                            <template v-for="(titem, tindex) in tableTitles">
+                                <tr>
+                                    <td class="headcol" bgcolor=#eef>{{titem}}</td>
+                                    <td  bgcolor=#eef v-for="fItem in dates">
+                                    </td>
+                                </tr>
+                                <tr v-for="(item, index) in selectedFields.sort()">
+                                    <td class="headcol" bgcolor=#efe>{{ item }}</td>
+                                    <td v-for="fItem in fieldTables[tindex]">
+                                        {{item.slice(-1)}}{{fItem}}
+                                    </td>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </template>
+                </v-simple-table>
+            </div>
         </v-col>
         <v-col class="ml-5" align="center">
             <div class="my-5"></div>
@@ -62,13 +62,9 @@ export default {
     data() {
         return {
             dates: [
+
                 new Date(new Date().getTime() - 86400000).toLocaleDateString(),
                 new Date().toLocaleDateString()
-            ],
-
-            fieldData: [
-                'xxx',
-                'yyy',
             ],
 
             tableTitles: [
@@ -104,13 +100,13 @@ export default {
         ])
     },
     methods: {
-        copyLastDate(titleIndex) {
-            if (this.fieldTables[titleIndex].length == this.dates.length) {
+        copyLastDate(x) {
+            if (this.fieldTables[x].length == this.dates.length) {
                 this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
                 this.dates.push(this.newDate.toLocaleDateString());
                 this.lastDate = this.newDate;
             }
-            this.fieldTables[titleIndex].push(this.fieldData[this.fieldData.length - 1]);
+            this.fieldTables[x].push(this.fieldTables[x][this.fieldTables[x].length - 1]);
         },
 
         getTitle(titleIndex) {
@@ -118,9 +114,9 @@ export default {
             this.copyLastDate(titleIndex);
         }
     },
+
     components: {
         'dropdownButton': require('@/components/DropdownButton.vue').default,
     }
-
 }
 </script>

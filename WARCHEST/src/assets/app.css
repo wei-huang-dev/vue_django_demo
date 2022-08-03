@@ -18,3 +18,22 @@
 .style-2 {
     background-color: rgb(233, 233, 224)
 }
+
+.headcol {
+    position: absolute;
+    width: 9.5%;
+    left: 1%;
+    /* background:#eee;    */
+    text-align: center !important;
+    padding-top: 10px !important;
+}
+
+.fluid-table tr:first-child td {
+    font-weight: bold;
+    /* background:#fff !important; */
+}
+
+.scrollsettings {
+    margin-left: 13%;
+    width: 1100px;
+}
