@@ -7,3 +7,7 @@ stackoverflow.com/questions/45813347/difference-between-the-created-and-mounted-
 
 Auth0 article that can help with some authentication stuffe even though we are not using Auth0
 auth0.com/blog/building-modern-applications-with-django-and-vuejs/
+
+v-if vs v-show
+vuejs.org/guide/essentials/conditional.html
+- Generally speaking, v-if has higher toggle costs while v-show has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
