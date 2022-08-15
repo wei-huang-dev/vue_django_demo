@@ -1,0 +1,9 @@
+How to build a VueJS app with Django Rest Framework:
+https://blog.logrocket.com/how-to-build-vue-js-app-django-rest-framework/
+
+Difference between Created and Mounted Vue hooks: 
+stackoverflow.com/questions/45813347/difference-between-the-created-and-mounted-events-in-vue-js
+- Going to want to switch the API calls and assigning to data variables to created from mounted
+
+Auth0 article that can help with some authentication stuffe even though we are not using Auth0
+auth0.com/blog/building-modern-applications-with-django-and-vuejs/
