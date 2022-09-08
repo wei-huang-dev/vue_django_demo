@@ -125,6 +125,7 @@ export default {
                 .then((response) => {
                     const jsonStr = JSON.stringify(response.data)
                     const jsObj = JSON.parse(jsonStr);
+                    this.fields = [];
                     for (let i = 0; i < jsObj.length; i++) {
                         if ((jsObj[i]['Title'] === this.title) && (jsObj[i]['Date'] === this.date)) {
                             this.photoFileName = jsObj[i]['photoFileName'];
