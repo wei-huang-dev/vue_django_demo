@@ -47,29 +47,11 @@
         </v-expansion-panel>
 
     </v-expansion-panels>
-    <v-card hover class="my-3">
-        <v-row>
-            <v-col class="ml-5">
-                <v-checkbox v-model="fields" id="field1" value="Field 1" :label="`Field 1`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field2" value="Field 2" :label="`Field 2`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field3" value="Field 3" :label="`Field 3`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field4" value="Field 4" :label="`Field 4`"></v-checkbox>
-            </v-col>
-            <v-col>
-                <v-checkbox v-model="fields" id="field5" value="Field 5" :label="`Field 5`"></v-checkbox>
-            </v-col>
-        </v-row>
-    </v-card>
 
-    <fieldDataTable :selectedFields="fields"/>
-    
-    <fieldSimpleTable :selectedFields="fields" />
+    <fieldSimpleTable />
+    <!-- <jsonFieldTable />
+
+    <fluidTable /> -->
 
 </v-container>
 </template>
@@ -122,40 +104,13 @@ export default {
                 'color 1',
                 'color 2',
             ],
-
-            dates: [
-                new Date(new Date().getTime() - 86400000).toLocaleDateString(),
-                new Date().toLocaleDateString()
-            ],
-
-            fieldData: [
-                'xxx',
-                'yyy',
-            ],
-
-            lastDate: new Date(),
-            newDate: new Date(),
-
-            fields: ["Field 1", "Field 2", "Field 3", "Field 4", "Field 5"],
         }
     },
-    methods: {
-        copyLastDate() {
-            this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
-            this.dates.push(this.newDate.toLocaleDateString());
-            this.lastDate = this.newDate;
-            this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
-        },
-        format_date(value) {
-            if (value) {
-                return moment(String(value)).format('YYYYMMDD')
-            }
-        }
-    },
+    methods: {},
     components: {
         'fieldSimpleTable': require('@/components/FieldSimpleTable.vue').default,
-        'dropdownButton': require('@/components/DropdownButton.vue').default,
-        'fieldDataTable': require('@/components/FieldDataTable.vue').default,
+        // 'jsonFieldTable': require('@/components/JsonFieldTable.vue').default,
+        // 'fluidTable': require('@/components/FluidTable.vue').default,
     }
 }
 </script>

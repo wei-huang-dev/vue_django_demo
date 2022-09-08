@@ -26,12 +26,6 @@ export default {
     }),
     methods: {
         handleClick(index) {
-            // alert(index + "454")
-            
-            // this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
-            // this.dates.push(this.newDate.toLocaleDateString());
-            // this.lastDate = this.newDate;
-            // this.fieldData.push(this.fieldData[this.fieldData.length - 1]);
         },
     },
 }
