@@ -11,3 +11,6 @@ auth0.com/blog/building-modern-applications-with-django-and-vuejs/
 v-if vs v-show
 vuejs.org/guide/essentials/conditional.html
 - Generally speaking, v-if has higher toggle costs while v-show has higher initial render costs. So prefer v-show if you need to toggle something very often, and prefer v-if if the condition is unlikely to change at runtime.
+
+DRF nested serializers
+testdriven.io/blog/drf-serializers/
