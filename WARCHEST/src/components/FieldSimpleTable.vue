@@ -25,6 +25,9 @@
                     Edit
                 </editButton>
             </v-col>
+            <v-col>
+                <exportDropdownButton @exportType="getExportType" />
+            </v-col>
         </v-row>
     </v-card>
 
@@ -70,7 +73,7 @@
 
 <script>
 import axios from "axios";
-import CONSTANTS from "../Constants";
+import { fileTypeParser } from "../helpers/fileTypeParser";
 
 export default {
     data() {
@@ -95,6 +98,7 @@ export default {
             lastDate: new Date(),
             newDate: new Date(),
             selectedCopy: "",
+            exportType: "xls",
 
         }
     },
@@ -132,7 +136,6 @@ export default {
     methods: {
 
         refreshData() {
-            console.log("refresh");
             let field1 = []
             let field2 = []
             let field3 = []
@@ -141,14 +144,13 @@ export default {
             let tables = []
             this.fieldTables = []
 
-            axios.get(CONSTANTS.API_URL + "warchest")
+            axios.get(this.$API_URL + "warchest")
                 .then((response) => {
-                    this.warchestData = response.data;
-                    console.log(this.warchestData.id + "   " + this.warchestData.photoFileName);
-                    const jsonStr = JSON.stringify(this.warchestData)
+                    this.$warchestData = response.data;
+                    const jsonStr = JSON.stringify(this.$warchestData)
                     const jsObj = JSON.parse(jsonStr);
 
-                    const dateCount = 2
+                    const dateCount = 2; // 2 dates for testing 
                     let k = 0
                     for (let i = 0; i < jsObj.length / dateCount; i++) {
                         for (let j = 0; j < dateCount; j++) {
@@ -173,7 +175,7 @@ export default {
                         field5 = []
                         tables = []
                     }
-                    console.log("-----" + this.fieldTables)
+                    // console.log("-----" + this.fieldTables)
 
                     // var obj = JSON.parse(jsonStr, function (key, value) {
                     // });
@@ -193,11 +195,17 @@ export default {
         getTitle(titleIndex) {
             this.selectedCopy = titleIndex;
             this.copyLastDate(titleIndex);
-        }
+        },
+
+        getExportType(exportType) {
+            fileTypeParser().exportDataFromJSON(this.$warchestData, "warchest-data", exportType);
+        },
+
     },
 
     components: {
         'dropdownButton': require('@/components/DropdownButton.vue').default,
+        'exportDropdownButton': require('@/components/ExportDropdownButton.vue').default,
         'editButton': require('@/components/EditDialog.vue').default,
     }
 }
