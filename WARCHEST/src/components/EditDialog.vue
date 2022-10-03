@@ -43,10 +43,12 @@
                         </template>
                     </v-simple-table>
                 </v-row>
+                <v-divider></v-divider>
                 <v-row align="center" justify="center">
-                    <v-img :aspect-ratio="4/3" :width=200 :src=PHOTO_URL+photoFileName></v-img>
+                    <v-img :aspect-ratio="4/3" :width=120 :src=PHOTO_URL+photoFileName></v-img>
                     <input class="m-2" type="file" @change="photoUpload">
                 </v-row>
+                <v-divider></v-divider>
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="green darken-1" text @click="dialog = false">
@@ -65,6 +67,7 @@
 <script>
 import axios from "axios";
 import CONSTANTS from "../Constants";
+
 export default {
     data() {
         return {
@@ -89,12 +92,14 @@ export default {
 
         }
     },
+
     methods: {
+
         photoUpload(event) {
             let formData = new FormData();
             formData.append('file', event.target.files[0]);
             axios.post(
-                    CONSTANTS.API_URL + "warchest/savefile",
+                    this.$API_URL + "warchest/savefile",
                     formData)
                 .then((response) => {
                     this.photoFileName = response.data;
@@ -104,7 +109,7 @@ export default {
         },
 
         updateClick() {
-            axios.put(CONSTANTS.API_URL + "warchest", {
+            axios.put(this.$API_URL + "warchest", {
                     Id: this.id,
                     Title: this.title,
                     Field1: this.fields[0],
@@ -121,9 +126,11 @@ export default {
         },
 
         showPhoto() {
-            axios.get(CONSTANTS.API_URL + "warchest")
+            // should get data from fieldTable component
+            this.$http.get(this.$API_URL + "warchest")
                 .then((response) => {
-                    const jsonStr = JSON.stringify(response.data)
+                    this.$warchestData = response.data;
+                    const jsonStr = JSON.stringify(this.$warchestData)
                     const jsObj = JSON.parse(jsonStr);
                     this.fields = [];
                     for (let i = 0; i < jsObj.length; i++) {
@@ -140,16 +147,8 @@ export default {
                             break;
                         }
                     }
-
                 });
         },
-        // refreshData() {
-        //     axios.get(CONSTANTS.API_URL + "warchest")
-        //         .then((response) => {
-        //             const jsonStr = JSON.stringify(response.data)
-        //             this.warchestData = JSON.parse(jsonStr);
-        //         });
-        // },
     },
     components: {
         'dropdownButton': require('@/components/DropdownButton.vue').default,

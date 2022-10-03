@@ -28,43 +28,61 @@
             <v-col>
                 <exportDropdownButton @exportType="getExportType" />
             </v-col>
+            <v-col>
+                <v-btn :loading="loading" :disabled="loading" color="primary" class="white--text" @click="loader=false">
+                    <v-icon dark>
+                        mdi-refresh
+                    </v-icon>
+                </v-btn>
+            </v-col>
+
         </v-row>
     </v-card>
 
     <v-card hover class="my-3">
         <v-row align="center">
             <v-col cols="10">
-                <div class="scrollsettings">
-                    <v-simple-table height="100%" width="100%" id="fieldTable">
-                        <template v-slot:default>
-                            <thead>
-                                <tr>
-                                    <th class="headcol">
-                                        DATE
-                                    </th>
-                                    <th class="text-left" v-for="item in dates">
-                                        {{ item }}
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <template v-for="(titem, tindex) in tableTitles">
+                <section v-if="errored">
+                    <p>Sorry - {{errorMsg}}</p>
+                </section>
+                <section v-else>
+                    <div align="center" v-if="loading">
+                        <v-progress-circular indeterminate color="blue-grey" size="90">
+                            Loading...
+                        </v-progress-circular>
+                    </div>
+                    <div v-else class="scrollsettings">
+                        <v-simple-table height="100%" width="100%" id="fieldTable">
+                            <template v-slot:default>
+                                <thead>
                                     <tr>
-                                        <td class="headcol" bgcolor=#eef>{{titem}}</td>
-                                        <td bgcolor=#eef v-for="fItem in dates">
-                                        </td>
+                                        <th class="headcol">
+                                            DATE
+                                        </th>
+                                        <th class="text-left" v-for="item in dates">
+                                            {{ item }}
+                                        </th>
                                     </tr>
-                                    <tr v-for="(item, index) in fields.sort()">
-                                        <td class="headcol" bgcolor=#efe>{{ item }}</td>
-                                        <td v-for="fItem in fieldTables[tindex][index]">
-                                            {{fItem}}
-                                        </td>
-                                    </tr>
-                                </template>
-                            </tbody>
-                        </template>
-                    </v-simple-table>
-                </div>
+                                </thead>
+                                <tbody>
+                                    <template v-for="(titem, tindex) in tableTitles">
+                                        <tr>
+                                            <td class="headcol" bgcolor=#eef>{{titem}}</td>
+                                            <td bgcolor=#eef v-for="fItem in dates">
+                                            </td>
+                                        </tr>
+                                        <tr v-for="(item, index) in fields.sort()">
+                                            <td class="headcol" bgcolor=#efe>{{ item }}</td>
+                                            <td v-for="fItem in fieldTables[tindex][index]">
+                                                {{fItem}}
+                                            </td>
+                                        </tr>
+                                    </template>
+                                </tbody>
+                            </template>
+                        </v-simple-table>
+                    </div>
+                </section>
             </v-col>
         </v-row>
     </v-card>
@@ -73,11 +91,17 @@
 
 <script>
 import axios from "axios";
-import { fileTypeParser } from "../helpers/fileTypeParser";
+import {
+    fileTypeParser
+} from "../helpers/fileTypeParser";
 
 export default {
     data() {
         return {
+            loading: true,
+            loader: null,
+            errored: false,
+            errorMsg: "",
             fields: ["Field 1", "Field 2", "Field 3", "Field 4", "Field 5"],
 
             warchestData: [],
@@ -99,43 +123,51 @@ export default {
             newDate: new Date(),
             selectedCopy: "",
             exportType: "xls",
-
         }
     },
-    mounted() {
-        // this.fieldTables.push([
-        //     ['a1', 'b1'],
-        //     ['a2', 'b2'],
-        //     ['a3', 'b3'],
-        //     ['a4', 'b4'],
-        //     ['a5', 'b5']
-        // ]) // table AB (date range)
-        // this.fieldTables.push([
-        //     ['d1', 'e1'],
-        //     ['d2', 'e2'],
-        //     ['d3', 'e3'],
-        //     ['d4', 'e4'],
-        //     ['d5', 'e5']
-        // ]) // table DE
-        // this.fieldTables.push([
-        //     ['g1', 'i1'],
-        //     ['g2', 'i2'],
-        //     ['g3', 'i3'],
-        //     ['g4', 'i4'],
-        //     ['g5', 'i5']
-        // ])
-        // this.fieldTables.push([
-        //     ['a1', 'b1'],
-        //     ['a2', 'b2'],
-        //     ['a3', 'b3'],
-        //     ['a4', 'b4'],
-        //     ['a5', 'b5']
-        // ])
-        this.refreshData()
+
+    watch: {
+        loader() {
+            this.loader = null
+            this.refreshData()
+        },
+    },
+    mounted() { // front end preset data
+        this.fieldTables.push([
+            ['a1', 'b1'],
+            ['a2', 'b2'],
+            ['a3', 'b3'],
+            ['a4', 'b4'],
+            ['a5', 'b5']
+        ]) // table AB (date range)
+        this.fieldTables.push([
+            ['d1', 'e1'],
+            ['d2', 'e2'],
+            ['d3', 'e3'],
+            ['d4', 'e4'],
+            ['d5', 'e5']
+        ]) // table DE
+        this.fieldTables.push([
+            ['g1', 'i1'],
+            ['g2', 'i2'],
+            ['g3', 'i3'],
+            ['g4', 'i4'],
+            ['g5', 'i5']
+        ])
+        this.fieldTables.push([
+            ['a1', 'b1'],
+            ['a2', 'b2'],
+            ['a3', 'b3'],
+            ['a4', 'b4'],
+            ['a5', 'b5']
+        ])
+        this.loading = false    // display preset data
     },
     methods: {
 
-        refreshData() {
+        async refreshData() {
+            this.loading = true
+            console.log("refresh data...")
             let field1 = []
             let field2 = []
             let field3 = []
@@ -144,7 +176,7 @@ export default {
             let tables = []
             this.fieldTables = []
 
-            axios.get(this.$API_URL + "warchest")
+            await axios.get(this.$API_URL + "warchest")
                 .then((response) => {
                     this.$warchestData = response.data;
                     const jsonStr = JSON.stringify(this.$warchestData)
@@ -175,13 +207,18 @@ export default {
                         field5 = []
                         tables = []
                     }
-                    // console.log("-----" + this.fieldTables)
-
                     // var obj = JSON.parse(jsonStr, function (key, value) {
                     // });
 
-                });
+                })
+                .catch(error => {
+                    console.log(error)
+                    this.errored = true
+                    this.errorMsg = error.message
+                })
+                .finally(() => this.loading = false)
         },
+
         copyLastDate(x) {
             if (this.fieldTables[x][1].length == this.dates.length) {
                 this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
