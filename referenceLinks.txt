@@ -14,3 +14,7 @@ vuejs.org/guide/essentials/conditional.html
 
 DRF nested serializers
 testdriven.io/blog/drf-serializers/
+stackoverflow.com/questions/50625057/nested-serializer-for-many-to-many
+stackoverflow.com/questions/56790335/many-to-many-field-and-nested-serializer-in-rest-overwriting-nested-serializer
+stackoverflow.com/questions/50968979/serialization-of-parent-model-including-child-models
+sankalpjonna.com/learn-django/representing-foreign-key-values-in-django-serializers
