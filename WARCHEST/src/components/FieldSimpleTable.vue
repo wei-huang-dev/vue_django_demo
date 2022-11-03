@@ -46,6 +46,7 @@
                     <p>Sorry - {{errorMsg}}</p>
                 </section>
                 <section v-else>
+                <!-- loading check can be disabled to keep existing data on the display -->
                     <div align="center" v-if="loading">
                         <v-progress-circular indeterminate color="blue-grey" size="90">
                             Loading...
@@ -91,6 +92,8 @@
 
 <script>
 import axios from "axios";
+import moment from 'moment';
+import Globals from "../Globals";
 import {
     fileTypeParser
 } from "../helpers/fileTypeParser";
@@ -133,6 +136,10 @@ export default {
         },
     },
     mounted() { // front end preset data
+
+        this.dates[0] = this.formatDate(this.dates[0])
+        this.dates[1] = this.formatDate(this.dates[1])
+
         this.fieldTables.push([
             ['a1', 'b1'],
             ['a2', 'b2'],
@@ -164,10 +171,16 @@ export default {
         this.loading = false    // display preset data
     },
     methods: {
-
+      formatDate(value){
+         if (value) {
+           return moment(String(value)).format('YYMMDD')
+          }
+      },
         async refreshData() {
             this.loading = true
-            console.log("refresh data...")
+            console.log("refresh data..." + Globals.US_CODE)
+            Globals.countryCode = Globals.US_CODE
+            console.log("refresh data..." + Globals.countryCode)
             let field1 = []
             let field2 = []
             let field3 = []
@@ -176,7 +189,8 @@ export default {
             let tables = []
             this.fieldTables = []
 
-            await axios.get(this.$API_URL + "warchest")
+            await axios.get(Globals.API_URL + "warchest")
+//            await axios.get(this.$API_URL + "warchest")
                 .then((response) => {
                     this.$warchestData = response.data;
                     const jsonStr = JSON.stringify(this.$warchestData)
@@ -222,7 +236,7 @@ export default {
         copyLastDate(x) {
             if (this.fieldTables[x][1].length == this.dates.length) {
                 this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
-                this.dates.push(this.newDate.toLocaleDateString());
+                this.dates.push(this.formatDate(this.newDate.toLocaleDateString()));
                 this.lastDate = this.newDate;
             }
             for (let i = 0; i < this.fieldTables[x].length; i++)
