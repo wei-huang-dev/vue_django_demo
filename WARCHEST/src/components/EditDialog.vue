@@ -66,12 +66,12 @@
 
 <script>
 import axios from "axios";
-import CONSTANTS from "../Constants";
+import Globals from "../Globals";
 
 export default {
     data() {
         return {
-            PHOTO_URL: CONSTANTS.PHOTO_URL,
+            PHOTO_URL: Globals.PHOTO_URL,
             dialog: false,
             photoFileName: "sample.png",
             fieldTables: [],
@@ -103,7 +103,7 @@ export default {
                     formData)
                 .then((response) => {
                     this.photoFileName = response.data;
-                    console.log("photoUpload :" + this.photoFileName);
+                    console.log( "photoUpload :" + this.photoFileName);
                 });
 
         },

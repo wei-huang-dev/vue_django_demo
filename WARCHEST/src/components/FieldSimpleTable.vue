@@ -46,7 +46,7 @@
                     <p>Sorry - {{errorMsg}}</p>
                 </section>
                 <section v-else>
-                <!-- loading check can be disabled to keep existing data on the display -->
+                    <!-- loading check can be disabled to keep existing data on the display -->
                     <div align="center" v-if="loading">
                         <v-progress-circular indeterminate color="blue-grey" size="90">
                             Loading...
@@ -168,17 +168,16 @@ export default {
             ['a4', 'b4'],
             ['a5', 'b5']
         ])
-        this.loading = false    // display preset data
+        this.loading = false // display preset data
     },
     methods: {
-      formatDate(value){
-         if (value) {
-           return moment(String(value)).format('YYMMDD')
-          }
-      },
+        formatDate(value) {
+            if (value) {
+                return moment(String(value)).format('YYMMDD')
+            }
+        },
         async refreshData() {
             this.loading = true
-            console.log("refresh data..." + Globals.US_CODE)
             Globals.countryCode = Globals.US_CODE
             console.log("refresh data..." + Globals.countryCode)
             let field1 = []
@@ -190,13 +189,24 @@ export default {
             this.fieldTables = []
 
             await axios.get(Globals.API_URL + "warchest")
-//            await axios.get(this.$API_URL + "warchest")
+                //            await axios.get(this.$API_URL + "warchest")
                 .then((response) => {
                     this.$warchestData = response.data;
                     const jsonStr = JSON.stringify(this.$warchestData)
                     const jsObj = JSON.parse(jsonStr);
 
                     const dateCount = 2; // 2 dates for testing 
+                    console.log('get data')
+                    this.dates = []
+                    this.dates.push(this.formatDate(jsObj[0]['Date']))
+                    this.dates.push(this.formatDate(jsObj[1]['Date']))
+                    console.log(jsObj[0]['Date'])
+                    console.log(jsObj[1]['Date'])
+                    console.log(this.formatDate(jsObj[0]['Date']))
+                    console.log(this.formatDate(jsObj[1]['Date']))
+                    this.lastDate = new Date(jsObj[1]['Date'])
+                    console.log(this.lastDate) //??
+
                     let k = 0
                     for (let i = 0; i < jsObj.length / dateCount; i++) {
                         for (let j = 0; j < dateCount; j++) {
@@ -234,6 +244,7 @@ export default {
         },
 
         copyLastDate(x) {
+            console.log(x + '----' + this.lastDate)
             if (this.fieldTables[x][1].length == this.dates.length) {
                 this.newDate = new Date(this.lastDate.getTime() + 86400000); // (24 * 60 * 60 * 1000)
                 this.dates.push(this.formatDate(this.newDate.toLocaleDateString()));

@@ -34,24 +34,30 @@
 </template>
 
 <script>
+
 export default {
     data: () => ({
         drawer: null,
         items: [{
                 title: 'Homepage',
                 icon: 'mdi-help-box',
-                to: '/homepage'
+                to: '/Homepage'
             },
             {
                 title: 'App1',
                 icon: 'mdi-format-list-checks',
                 to: '/app1'
             },
-            // {
-            //     title: 'Todo',
-            //     icon: 'mdi-format-list-checks',
-            //     to: '/Todo'
-            // },
+            {
+                title: 'Map1',
+                icon: 'mdi-format-list-checks',
+                to: '/map1'
+            },
+            {
+                title: 'Todo',
+                icon: 'mdi-format-list-checks',
+                to: '/todo'
+            },
             // {
             //     title: 'List1',
             //     icon: 'mdi-format-list-checks',
@@ -59,7 +65,6 @@ export default {
             // },
         ],
     }),
-    methods: {
-    }
+    methods: {}
 }
 </script>
