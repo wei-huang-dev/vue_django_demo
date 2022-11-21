@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Homepage from '../views/Homepage.vue'
 import App1 from '../views/App1.vue'
 import Map1 from '../views/Map1.vue'
+import Map2 from '../views/Map2.vue'
 
 Vue.use(VueRouter)
 
@@ -29,6 +30,11 @@ const routes = [
     path: '/map1',
     name: 'Map1',
     component: Map1
+  },
+  {
+    path: '/map2',
+    name: 'Map2',
+    component: Map2
   },
   {
     path: '/todo',

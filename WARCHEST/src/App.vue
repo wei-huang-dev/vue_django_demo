@@ -54,6 +54,11 @@ export default {
                 to: '/map1'
             },
             {
+                title: 'Map2',
+                icon: 'mdi-format-list-checks',
+                to: '/map2'
+            },
+            {
                 title: 'Todo',
                 icon: 'mdi-format-list-checks',
                 to: '/todo'
