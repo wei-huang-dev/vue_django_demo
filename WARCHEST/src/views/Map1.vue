@@ -31,7 +31,7 @@ export default {
         ],
     }),
     components: {
-        'map1': require('@/components/map.vue').default,
+        'map1': require('@/components/map1.vue').default,
     }
 }
 </script>
