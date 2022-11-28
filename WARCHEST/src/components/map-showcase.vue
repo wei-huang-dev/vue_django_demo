@@ -29,7 +29,7 @@
         </select>
         <hr>
         <v-btn name="button" @click="addEllipse" color="rgb(202, 216, 243)">
-            Add an ellipse
+            Add ellipses
         </v-btn><br>
         <hr>
         <v-btn name="button" @click="addMarker" color="rgb(202, 216, 243)">
@@ -89,7 +89,7 @@
             </tr>
         </table>
     </div>
-    <l-map :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom" :max-zoom="maxZoom" style="height: 500px; width: 100%">
+    <l-map ref="map" @ready="onReady()" :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom" :max-zoom="maxZoom" style="height: 500px; width: 100%">
         <l-control-layers :position="layersPosition" :collapsed="false" :sort-layers="true" />
         <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name" :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution" :token="token" layer-type="base" />
         <l-control-zoom :position="zoomPosition" />
@@ -118,7 +118,9 @@
 
 <script>
 import * as theEllipse from '../helpers/l.ellipse.js'
-import { latLng } from "leaflet";
+import {
+    latLng
+} from "leaflet";
 import {
     latLngBounds
 } from 'leaflet';
@@ -415,6 +417,7 @@ export default {
     },
     data() {
         return {
+            map: null,
             center: [47.695, -0.615],
             opacity: 0.6,
             token: 'your token if using mapbox',
@@ -437,6 +440,7 @@ export default {
                 center: latLng(47.886881, -0.922852),
                 radius: 4500
             },
+            ellipse: null,
             markers: [{
                     id: 'm1',
                     // position: { lat: 51.505, lng: -0.09 },
@@ -532,20 +536,34 @@ export default {
         };
     },
     methods: {
+        mounted() {
+            this.$nextTick(() => {
+                this.map = this.$refs.map.mapObject
+            })
+        },
+        onReady() {
+            this.map = this.$refs.map.mapObject
+        },
         alert(item) {
             alert('this is ' + JSON.stringify(item));
         },
-        addElipse: function () {
-            var ellipse = L.ellipse([47.86, -0.92], [500, 100], 90).addTo(map);
-            // const newMarker = {
-            //     position: {
-            //         lat: 47.86,
-            //         lng: -0.92
-            //     },
-            //     draggable: true,
-            //     visible: true,
-            // };
-            // this.markers.push(newMarker);
+        addEllipse: function () {
+            L.ellipse([47.86, -0.92], [900, 500], 70, {
+                color: 'red',
+                fillOpacity: 0.2
+            }).addTo(this.map);
+            L.ellipse([47.68, -0.612], [1300, 340], 112, {
+                color: 'brown',
+                fillOpacity: 0.2
+            }).addTo(this.map);
+            L.ellipse([47.72, -0.833], [939, 531], 107, {
+                color: 'purple',
+                fillOpacity: 0.2
+            }).addTo(this.map);
+            L.ellipse([47.656, -0.90], [977, 432], 109).addTo(this.map);
+            L.ellipse([60, -3.2], [1300, 340], 112).addTo(this.map);
+            L.ellipse([55, -3.3], [939, 531], 107).addTo(this.map);
+            L.ellipse([56, -3.4], [977, 432], 109).addTo(this.map);
         },
         addMarker: function () {
             const newMarker = {
