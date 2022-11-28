@@ -11,6 +11,7 @@
     "core-js": "^3.6.5",
     "export-from-json": "^1.6.0",
     "leaflet": "^1.9.2",
+    "leaflet-ellipse": "^0.9.1",
     "moment": "^2.29.4",
     "vue": "^2.6.11",
     "vue-router": "^3.2.0",

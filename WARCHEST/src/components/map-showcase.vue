@@ -106,7 +106,7 @@
             <l-layer-group :visible="item.markersVisible">
                 <l-marker v-for="marker in item.markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng="marker.position" @click="alert(marker)" />
             </l-layer-group>
-            <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @click="alert(item.polyline)" />
+            <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @clilatLngBoundsck="alert(item.polyline)" />
         </l-layer-group>
         <l-circle :lat-lng="circle.center" :radius="circle.radius">
             <l-popup :content="Circle" />
@@ -117,7 +117,6 @@
 </template>
 
 <script>
-import * as theEllipse from '../helpers/l.ellipse.js'
 import {
     latLng
 } from "leaflet";
@@ -381,14 +380,13 @@ const tileProviders = [{
         visible: true,
         attribution: '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
         url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', // online
-        //    url: '/LeMans/OSMPublicTransport/{z}/{x}/{y}.png',  // offline
     },
     {
         name: 'Offline Map',
         visible: true,
         attribution: '&copy; <a target="_blank" href="http://osm.org/copyright">OpenStreetMap</a> contributors',
-        // url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',  // online
-        url: '/LeMans/OSMPublicTransport/{z}/{x}/{y}.png', // offline
+        // url: '/LeMans/OSMPublicTransport/{z}/{x}/{y}.png', // offline
+        url: '/LondonLeMans/OSMPublicTransport/{z}/{x}/{y}.png', // offline
     },
     {
         name: 'OpenTopoMap',
@@ -426,9 +424,9 @@ export default {
                 attributionControl: false,
                 zoomSnap: true,
             },
-            zoom: 8,
-            minZoom: 1,
-            maxZoom: 20,
+            zoom: 10,
+            minZoom: 5,
+            maxZoom: 10,  // force to default
             zoomPosition: 'topleft',
             attributionPosition: 'bottomright',
             layersPosition: 'topright',
