@@ -1,3 +1,7 @@
+<!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css"
+     integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI="
+     crossorigin=""/> -->
+
 <template>
 <div>
     <div>
@@ -108,7 +112,7 @@
             </l-layer-group>
             <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @clilatLngBoundsck="alert(item.polyline)" />
         </l-layer-group>
-        <l-circle :lat-lng="circle.center" :radius="circle.radius">
+        <l-circle :lat-lng="circle.center" :radius="circle.radius" :color="red">
             <l-popup :content="Circle" />
         </l-circle>
     </l-map>
@@ -117,18 +121,16 @@
 </template>
 
 <script>
+import * as theEllipse from "../helpers/l.ellipse.js"; // !magic
 import {
-    latLng
-} from "leaflet";
-import {
+    latLng,
     latLngBounds
-} from 'leaflet';
+} from "leaflet";
 import {
     LMap,
     LTileLayer,
     LMarker,
     LCircle,
-    LEllipse,
     LPolyline,
     LLayerGroup,
     LTooltip,
@@ -403,7 +405,6 @@ export default {
         LTileLayer,
         LMarker,
         LCircle,
-        LEllipse,
         LPolyline,
         LLayerGroup,
         LTooltip,
@@ -425,8 +426,8 @@ export default {
                 zoomSnap: true,
             },
             zoom: 10,
-            minZoom: 5,
-            maxZoom: 10,  // force to default
+            minZoom: 1,
+            maxZoom: 20, // force to default
             zoomPosition: 'topleft',
             attributionPosition: 'bottomright',
             layersPosition: 'topright',
@@ -541,11 +542,13 @@ export default {
         },
         onReady() {
             this.map = this.$refs.map.mapObject
+            this.map.on('click', this.onMapClick);
         },
         alert(item) {
             alert('this is ' + JSON.stringify(item));
         },
         addEllipse: function () {
+
             L.ellipse([47.86, -0.92], [900, 500], 70, {
                 color: 'red',
                 fillOpacity: 0.2
@@ -581,6 +584,9 @@ export default {
             const bounds = latLngBounds(markers1.map(o => o.position));
             this.bounds = bounds;
         },
+        onMapClick: function (e) {
+            console.log(e.latlng.toString())
+        }
     },
 };
 </script>
