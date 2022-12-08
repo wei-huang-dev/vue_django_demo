@@ -5,11 +5,18 @@ from django.http.response import JsonResponse
 
 from WarchestApp.models import WarchestData
 from WarchestApp.serializers import WarchestSerializer
+from WarchestApp.serializers import UserSerializer
 
 from django.core.files.storage import default_storage
 
 import json
+import time
+
+# from django.shortcuts import render
+from django.contrib.auth import get_user_model
+
 # Create your views here.
+
 
 
 # def warchestData():
@@ -58,6 +65,23 @@ import json
 #         ]
 #     }
 #     var = json.loads(jsonData)
+@csrf_exempt
+def viewUsers(request):
+    print(" show Users-----")
+
+    all_users = get_user_model().objects.all()
+    print(all_users)
+
+    context = {'allusers': all_users}
+    print("---context")
+    print(context)
+    # if request.method == 'GET':
+    users_serializer = UserSerializer(all_users, many=True)
+    user_dict = json.dumps(users_serializer.data)
+
+    print(user_dict)
+    return JsonResponse(users_serializer.data, safe=False)
+    # return render(request, 'Blog/home.html', context)
 
 
 @csrf_exempt
@@ -71,6 +95,8 @@ def warchestApi(request, id=0):
         warchest_dict = json.dumps(warchests_serializer.data)
 
         print(warchest_dict)
+        time.sleep(5)
+        print("---")
         return JsonResponse(warchests_serializer.data, safe=False)
 
     elif request.method == 'POST':

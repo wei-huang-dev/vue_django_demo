@@ -10,6 +10,7 @@
 
 >> python manage.py migrate WarchestApp
 
+>>  python manage.py runserver
 
 --- Check to see if SQLite created the table structure below
 
@@ -39,3 +40,9 @@ insert into WarchestApp_warchestdata values(8, 'KLM', 'l1', 'l2', 'l3', 'l4', 'l
 
 
 select * from warchestapp_warchestdata;
+
+
+To check data
+http://127.0.0.1:8000/admin
+http://127.0.0.1:8000/warchest
+http://127.0.0.1:8000/warchest/viewusers
