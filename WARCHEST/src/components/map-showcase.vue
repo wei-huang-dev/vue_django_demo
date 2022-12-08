@@ -110,7 +110,7 @@
             <l-layer-group :visible="item.markersVisible">
                 <l-marker v-for="marker in item.markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng="marker.position" @click="alert(marker)" />
             </l-layer-group>
-            <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @clilatLngBoundsck="alert(item.polyline)" />
+            <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @click="alert(item.polyline)" />
         </l-layer-group>
         <l-circle :lat-lng="circle.center" :radius="circle.radius" :color="red">
             <l-popup :content="Circle" />

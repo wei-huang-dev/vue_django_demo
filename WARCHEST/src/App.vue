@@ -59,15 +59,15 @@ export default {
                 to: '/map2'
             },
             {
-                title: 'Todo',
+                title: 'Admin',
                 icon: 'mdi-format-list-checks',
-                to: '/todo'
+                to: '/admin'
             },
-            // {
-            //     title: 'List1',
-            //     icon: 'mdi-format-list-checks',
-            //     to: '/list1'
-            // },
+            {
+                title: 'List1',
+                icon: 'mdi-format-list-checks',
+                to: '/list1'
+            },
         ],
     }),
     methods: {}

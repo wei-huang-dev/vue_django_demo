@@ -10,5 +10,6 @@ export default {
     US_CODE,
 
     warchestData: null,
+    userData: null,
     countryCode: null
 };

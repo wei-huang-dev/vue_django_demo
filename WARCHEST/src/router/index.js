@@ -4,6 +4,7 @@ import Homepage from '../views/Homepage.vue'
 import App1 from '../views/App1.vue'
 import Map1 from '../views/Map1.vue'
 import Map2 from '../views/Map2.vue'
+import Admin from '../views/Admin.vue'
 
 Vue.use(VueRouter)
 
@@ -37,9 +38,9 @@ const routes = [
     component: Map2
   },
   {
-    path: '/todo',
-    name: 'Todo',
-    component: () => import('@/laterViews/Todo.vue')
+    path: '/admin',
+    name: 'Admin',
+    component: Admin
   },
   {
     path: '/list1',
