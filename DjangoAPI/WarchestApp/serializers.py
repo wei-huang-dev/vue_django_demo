@@ -10,4 +10,4 @@ class WarchestSerializer(serializers.ModelSerializer):
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model=UserData 
-        fields=('username', 'email', 'first_name', 'last_name')
+        fields=('username', 'email', 'first_name', 'last_name', 'password', 'last_login', 'date_joined', 'is_active', 'is_staff')
