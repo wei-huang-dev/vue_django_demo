@@ -24,7 +24,15 @@
                 </v-col>
 
                 <v-col cols="10" md="4">
-                    <v-text-field v-model="role" :rules="roleRules" label="Role" required></v-text-field>
+                    <v-text-field v-model="is_active" :rules="activeRules" label="Is Active?" required></v-text-field>
+                </v-col>
+
+                <v-col cols="10" md="4">
+                    <v-text-field v-model="is_staff" :rules="staffRules" label="Is Admin?" required></v-text-field>
+                </v-col>
+
+                <v-col cols="10" md="4">
+                    <v-text-field v-model="last_login" :rules="loginRules" label="Last Login" required></v-text-field>
                 </v-col>
             </v-row>
             <v-btn :disabled="true" color="success" class="mr-4" @click="create">
@@ -62,7 +70,9 @@ export default {
             first: '',
             last: '',
             email: '',
-            role: ''
+            is_active: '',
+            is_staff: '',
+            last_login: ''
         }
     },
     computed: {
@@ -79,7 +89,9 @@ export default {
             this.first = user[0].first_name
             this.last = user[0].last_name
             this.email = user[0].email
-            this.role = user[0].username
+            this.is_active = user[0].is_active
+            this.is_staff = user[0].is_staff
+            this.last_login = user[0].last_login
         }
     },
     methods: {
