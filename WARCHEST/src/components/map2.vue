@@ -5,13 +5,13 @@
         <v-data-table :headers="headers" :items="lookupItems" sort-by="id" v-model="selected" @input="getSelected($event)" show-select class="elevation-1">
             <template v-slot:top>
                 <v-toolbar flat>
-                    <v-toolbar-title>Table Lookup for {{lookupTable}}</v-toolbar-title>
+                    <!-- <v-toolbar-title>Table Lookup for {{lookupTable}}</v-toolbar-title>
                     <v-divider class="mx-4" inset vertical></v-divider>
-                    <v-spacer></v-spacer>
+                    <v-spacer></v-spacer> -->
                     <v-dialog v-model="dialog" max-width="500px">
                         <template v-slot:activator="{ on, attrs }">
                             <v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
-                                New Item
+                                New Closure Area
                             </v-btn>
                         </template>
                         <v-card>
@@ -61,7 +61,7 @@
                     </v-dialog>
                     <v-dialog v-model="dialogDelete" max-width="500px">
                         <v-card>
-                            <v-card-title class="text-h5">Are you sure you want to delete [{{editedItem.id}}] {{editedItem.start_date}}?</v-card-title>
+                            <v-card-title class="text-h5">Are you sure you want to delete Area [{{editedItem.id}}]?</v-card-title>
                             <v-card-actions>
                                 <v-spacer></v-spacer>
                                 <v-btn color="blue darken-1" text @click="closeDelete">Cancel</v-btn>
@@ -183,30 +183,31 @@
             </tr>
         </table> -->
     </div>
-    <l-map ref="map" @ready="onReady()" :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom" :max-zoom="maxZoom" style="height: 500px; width: 100%">
-        <l-control-layers :position="layersPosition" :collapsed="false" :sort-layers="true" />
-        <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name" :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution" :token="token" layer-type="base" />
-        <l-control-zoom :position="zoomPosition" />
-        <l-control-attribution :position="attributionPosition" :prefix="attributionPrefix" />
-        <l-control-scale :imperial="imperial" />
-        <l-marker v-for="marker in markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng.sync="marker.position" :icon="marker.icon" @click="alert(marker)">
-            <l-popup :content="marker.tooltip" />
-            <l-tooltip :content="marker.tooltip" />
-        </l-marker>
-        <l-layer-group layer-type="overlay" name="Layer polyline">
-            <l-polyline v-for="item in polylines" :key="item.id" :lat-lngs="item.points" :visible="item.visible" @click="alert(item)" />
-        </l-layer-group>
-        <l-layer-group v-for="item in stuff" :key="item.id" :visible.sync="item.visible" layer-type="overlay" name="Layer 1">
-            <l-layer-group :visible="item.markersVisible">
-                <l-marker v-for="marker in item.markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng="marker.position" @click="alert(marker)" />
+    <v-img height="100%" width="100%">
+        <l-map ref="map" @ready="onReady()" :zoom.sync="zoom" :options="mapOptions" :center="center" :bounds="bounds" :min-zoom="minZoom" :max-zoom="maxZoom" style="height: 500px; width: 100%">
+            <l-control-layers :position="layersPosition" :collapsed="false" :sort-layers="true" />
+            <l-tile-layer v-for="tileProvider in tileProviders" :key="tileProvider.name" :name="tileProvider.name" :visible="tileProvider.visible" :url="tileProvider.url" :attribution="tileProvider.attribution" :token="token" layer-type="base" />
+            <l-control-zoom :position="zoomPosition" />
+            <l-control-attribution :position="attributionPosition" :prefix="attributionPrefix" />
+            <l-control-scale :imperial="imperial" />
+            <l-marker v-for="marker in markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng.sync="marker.position" :icon="marker.icon" @click="alert(marker)">
+                <l-popup :content="marker.tooltip" />
+                <l-tooltip :content="marker.tooltip" />
+            </l-marker>
+            <l-layer-group layer-type="overlay" name="Layer polyline">
+                <l-polyline v-for="item in polylines" :key="item.id" :lat-lngs="item.points" :visible="item.visible" @click="alert(item)" />
             </l-layer-group>
-            <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @click="alert(item.polyline)" />
-        </l-layer-group>
-        <!-- <l-circle :lat-lng="circle.center" :radius="circle.radius" :color="red">
+            <l-layer-group v-for="item in stuff" :key="item.id" :visible.sync="item.visible" layer-type="overlay" name="Layer 1">
+                <l-layer-group :visible="item.markersVisible">
+                    <l-marker v-for="marker in item.markers" :key="marker.id" :visible="marker.visible" :draggable="marker.draggable" :lat-lng="marker.position" @click="alert(marker)" />
+                </l-layer-group>
+                <l-polyline :lat-lngs="item.polyline.points" :visible="item.polyline.visible" @click="alert(item.polyline)" />
+            </l-layer-group>
+            <!-- <l-circle :lat-lng="circle.center" :radius="circle.radius" :color="red">
             <l-popup :content="Circle" />
         </l-circle> -->
-    </l-map>
-
+        </l-map>
+    </v-img>
 </div>
 </template>
 
@@ -703,7 +704,7 @@ export default {
 
     computed: {
         formTitle() {
-            return this.editedIndex === -1 ? 'New Item' : 'Edit Item'
+            return this.editedIndex === -1 ? 'New Area' : 'Edit Area'
         },
     },
 
@@ -800,7 +801,10 @@ export default {
             if (this.displayItems != null) {
                 this.map.removeLayer(this.displayItems)
             }
-            -
+
+            var centerLat = 0
+            var centerLng = 0
+            var size = items.length
             items.forEach((item, index) => {
                 L.circle({
                     'lat': item.latitude,
@@ -811,10 +815,12 @@ export default {
                 }).addTo(this.displayItems)
 
                 this.map.addLayer(this.displayItems)
-                this.map.setView([item.latitude, item.longitude], 8);
 
-//                this.map.fitBounds(this.displayItems.getBounds());
+                centerLat += item.latitude
+                centerLng += item.longitude
 
+                //                this.map.setView([item.latitude, item.longitude], 8);
+                this.map.setView([centerLat / size, centerLng / size], 8);
             })
 
         },
