@@ -49,9 +49,9 @@ export default {
                 to: '/app1'
             },
             {
-                title: 'Map1',
+                title: 'Closure Areas',
                 icon: 'mdi-format-list-checks',
-                to: '/map1'
+                to: '/closureAreas'
             },
             {
                 title: 'Map2',
@@ -62,6 +62,16 @@ export default {
                 title: 'Admin',
                 icon: 'mdi-format-list-checks',
                 to: '/admin'
+            },
+            {
+                title: 'Lookup Tables',
+                icon: 'mdi-format-list-checks',
+                to: '/lookupTables'
+            },
+            {
+                title: 'Map1',
+                icon: 'mdi-format-list-checks',
+                to: '/map1'
             },
             {
                 title: 'List1',

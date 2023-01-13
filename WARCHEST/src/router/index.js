@@ -2,9 +2,11 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Homepage from '../views/Homepage.vue'
 import App1 from '../views/App1.vue'
+import ClosureAreas from '../views/ClosureAreas.vue'
 import Map1 from '../views/Map1.vue'
 import Map2 from '../views/Map2.vue'
 import Admin from '../views/Admin.vue'
+import LookupTables from '../views/LookupTables.vue'
 
 Vue.use(VueRouter)
 
@@ -28,9 +30,9 @@ const routes = [
     component: App1
   },
   {
-    path: '/map1',
-    name: 'Map1',
-    component: Map1
+    path: '/closureAreas',
+    name: 'ClosureAreas',
+    component: ClosureAreas
   },
   {
     path: '/map2',
@@ -41,6 +43,11 @@ const routes = [
     path: '/admin',
     name: 'Admin',
     component: Admin
+  },
+  {
+    path: '/lookupTables',
+    name: 'LookupTables',
+    component: LookupTables
   },
   {
     path: '/list1',
